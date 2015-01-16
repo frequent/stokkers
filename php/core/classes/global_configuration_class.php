@@ -25,6 +25,14 @@
     **/
   class global_configuration_class {
 
+    /**
+      * @property     | $database_connection_status
+      * @type         | Object
+      * @default      | null
+      * @description  | Contains status of database connection
+      **/
+    public $database_connection_status = null;
+   
     // ----------------- Set persistent database connection --------------------
     /**
       * @method       | connectToDatabase
@@ -51,8 +59,35 @@
         return $db;
       }
       catch(\PDOException $e) {
-        echo "Failed to connect to database";
+        $error_class = new error_class();
+        $this->database_connection_status = $error_class->createErrorObject(
+          500, "Failed to connect to database.", $e
+        );
       }
+    }
+    
+    // -----------------  Verify dependencies are available --------------------
+    /**
+      * @method       | verifyDependencies
+      * @param        | {Array} $my_dependency_list List of dependencies
+      * @description  | Verfiy all required dependencies are available
+      **/
+    public function verifyDependencies($my_dependency_list) {
+      $count;
+      $extension;
+      $dependency_list_len = count($my_dependency_list);
+
+      for ($count = 0; $count < $dependency_list_len; $count += 1) {
+        $extension = $my_dependency_list[$count];
+        if (!extension_loaded($extension)) {
+          $error_class = new error_class();
+          return $error_class->createErrorObject(
+            500, "Please enable '". $extension ."' extension.", null
+          );
+          break;
+        }
+      }
+      return null;
     }
   }
 ?>

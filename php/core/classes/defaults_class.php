@@ -58,8 +58,7 @@
       **/
     public $dependency_list = array(
       "mbstring",
-      "openssl",
-      "FOO"
+      "openssl"
     );
 
   }

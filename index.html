@@ -22,9 +22,10 @@
     e.preventDefault();
 
     xhr = new XMLHttpRequest();
-    xhr.open("POST", "php/core/requestRunner.php", true);
+    xhr.open("POST", "php/core/request.php", true);
     xhr.addEventListener("load", function (e) {
       console.log("OK");
+      console.log(e.target.responseText);
       var div = document.createElement("div");
       div.innerHTML = e.target.responseText;
       document.body.appendChild(div);

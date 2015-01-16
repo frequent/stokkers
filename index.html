@@ -3,7 +3,42 @@
 <head>
   <title>Stokkers</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body></body>
+<body>
+
+<form action="" method="POST">
+  <button type="submit">Submit</button>
+</form>
+
+<script type="text/javascript">
+  var form = document.getElementsByTagName("form")[0];
+
+  form.addEventListener("submit", handleSubmit, false);
+
+  function handleSubmit(e) {
+    var xhr;
+
+    e.preventDefault();
+
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "php/core/requestRunner.php", true);
+    xhr.addEventListener("load", function (e) {
+      console.log("OK");
+      var div = document.createElement("div");
+      div.innerHTML = e.target.responseText;
+      document.body.appendChild(div);
+      //console.log(e.target.responseText);
+    });
+    xhr.addEventListener("error", function (e) {
+      console.log("FAIL");
+      var div = document.createElement("div");
+      div.innerHTML = e.target.responseText;
+      document.body.appendChild(div);
+    });
+    xhr.send();
+    return false;
+  }
+</script>
+</body>
 </html>

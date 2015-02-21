@@ -51,6 +51,31 @@
     }
   }
 
+  // -------------------  Instantiate autoloading  -----------------------------
+  // TODO: make lighter, move to global configuration if possible.
+  $dependency_manager_class = new dependency_manager_class();
+  $dependency_manager_class->autoLoadReset();
+  $dependency_manager_class->autoLoadSet();
+
+  // --------------------  Instantiate defaults  -------------------------------
+  $defaults_class = new defaults_class();
+
+  // -------------------  Instantiate error handling  --------------------------
+  $error_class = new error_class();
+  $error_class->setErrorHandling($defaults_class->error_log_path);
+
+  // ------------------  Instantiate authentication  ---------------------------
+  $authentication_class = new authentication_class();
+
+  // ----------------  Redirect http to https and exit -------------------------
+  // TODO: necessary? This is a REST accesspoint, so...
+  if ($authentication_class->redirectHttp($_SERVER)) {
+    exit();
+  }
+
+  // --------------------  Instantiate configuration  --------------------------
+  $global_configuration_class = new global_configuration_class();
+
   // --------------------  Define database variable  ---------------------------
   /**
     * @property     | $database
@@ -74,22 +99,6 @@
     * @description  | Response object to be returned to the user
     **/
   $success = null;
-  
-  // -------------------  Instantiate autoloading  -----------------------------
-  // TODO: make lighter, move to global configuration if possible.
-  $dependency_manager_class = new dependency_manager_class();
-  $dependency_manager_class->autoLoadReset();
-  $dependency_manager_class->autoLoadSet();
-
-  // -------------------  Instantiate error handling  --------------------------
-  $error_class = new error_class();
-
-  // --------------------  Instantiate defaults  -------------------------------
-  // TODO: defaults should eventually be customizable and loaded ad hoc.
-  $defaults_class = new defaults_class();
-  
-  // --------------------  Instantiate configuration  --------------------------
-  $global_configuration_class = new global_configuration_class();
 
   // ------------------  Set custom error/exception handler --------------------
   //$customErrorHandler = $error_class->customErrorHandler;
@@ -113,6 +122,9 @@
   } elseif ($success !== null) {
     echo $success;
   } else {
-    echo "ok";
+    foreach (getallheaders() as $name => $value) {
+      $dict[$name] = $value;
+    }
+    echo json_encode($dict);
   }
 ?>

@@ -23,16 +23,16 @@
 
     xhr = new XMLHttpRequest();
     xhr.open("POST", "php/core/request.php", true);
+    xhr.setRequestHeader("foo", "bar");
     xhr.addEventListener("load", function (e) {
-      console.log("OK");
+      console.log("answer");
       console.log(e.target.responseText);
       var div = document.createElement("div");
       div.innerHTML = e.target.responseText;
       document.body.appendChild(div);
-      //console.log(e.target.responseText);
     });
     xhr.addEventListener("error", function (e) {
-      console.log("FAIL");
+      console.log("fail whatever");
       var div = document.createElement("div");
       div.innerHTML = e.target.responseText;
       document.body.appendChild(div);

@@ -60,6 +60,13 @@
       "mbstring",
       "openssl"
     );
+    
+    /**
+      * @property     | $error_log_path
+      * @type         | String
+      * @description  | Custom error log destination
+      **/
+    public $error_log_path = "";
 
   }
 ?>

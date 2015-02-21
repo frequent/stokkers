@@ -29,7 +29,7 @@
       * @property     | $database_connection_status
       * @type         | Object
       * @default      | null
-      * @description  | Contains status of database connection
+      * @description  | Contains current status of database connection
       **/
     public $database_connection_status = null;
    
@@ -59,10 +59,7 @@
         return $db;
       }
       catch(\PDOException $e) {
-        $error_class = new error_class();
-        $this->database_connection_status = $error_class->createErrorObject(
-          500, "Failed to connect to database.", $e
-        );
+        throw new Exception("500, Failed to connect to database");
       }
     }
     
@@ -80,10 +77,7 @@
       for ($count = 0; $count < $dependency_list_len; $count += 1) {
         $extension = $my_dependency_list[$count];
         if (!extension_loaded($extension)) {
-          $error_class = new error_class();
-          return $error_class->createErrorObject(
-            500, "Please enable '". $extension ."' extension.", null
-          );
+          throw new Exception("500, Please enable '". $extension ."' extension");
           break;
         }
       }

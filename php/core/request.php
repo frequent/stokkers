@@ -1,6 +1,7 @@
 <?php
   // follow: https://phpbestpractices.org/
-
+  // $this->member for non-static members, use self::$member for static members
+  
   /* ======================================================================== */
   /*                                  Request                                 */
   /* ======================================================================== */
@@ -52,22 +53,25 @@
   }
 
   // -------------------  Instantiate autoloading  -----------------------------
-  // TODO: make lighter, move to global configuration if possible.
+  // TODO: necessary as a class?.
   $dependency_manager_class = new dependency_manager_class();
   $dependency_manager_class->autoLoadReset();
   $dependency_manager_class->autoLoadSet();
 
   // --------------------  Instantiate defaults  -------------------------------
+  // TODO: fetch, from where? It's a "recipe" to setup db, so it can't be in db
   $defaults_class = new defaults_class();
 
   // -------------------  Instantiate error handling  --------------------------
   $error_class = new error_class();
   $error_class->setErrorHandling($defaults_class->error_log_path);
+  
+  // -------------------  FROM HERE ERRORS ARE CAUGHT  -------------------------
 
   // ------------------  Instantiate authentication  ---------------------------
   $authentication_class = new authentication_class();
 
-  // ----------------  Redirect http to https and exit -------------------------
+  // -------------------  Throw on non secure requests -------------------------
   // TODO: necessary? This is a REST accesspoint, so...
   if ($authentication_class->redirectHttp($_SERVER)) {
     exit();
@@ -116,7 +120,7 @@
   $error = $global_configuration_class->database_connection_status;
 
   // ----------------------  (only) echo to user  ------------------------------
-  // TODO: how to a || b || c?
+  /* TODO: how to a || b || c?
   if ($error !== null) {
     echo $error;
   } elseif ($success !== null) {
@@ -127,4 +131,9 @@
     }
     echo json_encode($dict);
   }
+  */
+  echo "hello";
+
+
+
 ?>

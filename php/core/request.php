@@ -103,12 +103,6 @@
     * @description  | Response object to be returned to the user
     **/
   $success = null;
-
-  // ------------------  Set custom error/exception handler --------------------
-  //$customErrorHandler = $error_class->customErrorHandler;
-  //$customExceptionHandler = $error_class->customExceptionHandler;
-  //$new_error_handler = set_error_handler("customErrorHandler");
-  //$new_exception_handler = set_exception_handler("customExceptionHandler");
   
   // ------------------   Verify dependencies are available --------------------
   // TODO: really necessary?

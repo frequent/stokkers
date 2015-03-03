@@ -21,7 +21,7 @@
     * class containing global configuration parameters
     * @class defaults_class
     */
-  class defaults_class {
+  class core_defaults_class {
 
     /**
       * @property     | $database_user

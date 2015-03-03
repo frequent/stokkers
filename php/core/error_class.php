@@ -22,7 +22,7 @@
     * @type          | object
     * @description   | global applciation error handler
     **/
-  class error_class {
+  class core_error_class {
 
     /**
       * @property     | $error_name_dict
@@ -153,7 +153,7 @@
         $error_message,
         $error_file,
         $error_line,
-        implode(",", $error_context),
+        null,
         $status,
         "500",
         false
@@ -286,8 +286,7 @@
       
       header('HTTP/1.1 '.$my_http_code.' Internal Error');
       header('Content-type: application/vnd.error+json');
-      echo $response_dict;
-      //echo $log_message;
+      //echo $response_dict;
       die();
     }
   }

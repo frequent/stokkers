@@ -37,9 +37,13 @@
       **/
     public function autoLoadSet() {
       function autoLoad($class_name) {
-        include(__DIR__ . "/classes/" . $class_name . ".php");
+        $position = strpos($class_name, "_");
+        if ($position !== false) {
+          $path = substr_replace($class_name, "/" , $position, 1);
+          include(__DIR__ . '/'.$path.".php");
+        }
       }
-
+      
       spl_autoload_register('autoLoad');
     }
 
@@ -60,25 +64,26 @@
 
   // --------------------  Instantiate defaults  -------------------------------
   // TODO: fetch, from where? It's a "recipe" to setup db, so it can't be in db
-  $defaults_class = new defaults_class();
+  $defaults_class = new core_defaults_class();
 
   // -------------------  Instantiate error handling  --------------------------
-  $error_class = new error_class();
+  $error_class = new core_error_class();
   $error_class->setErrorHandling($defaults_class->error_log_path);
   
   // -------------------  FROM HERE ERRORS ARE CAUGHT  -------------------------
 
   // ------------------  Instantiate authentication  ---------------------------
-  $authentication_class = new authentication_class();
+  // $authentication_class = new core_authentication_class();
 
   // -------------------  Throw on non secure requests -------------------------
   // TODO: necessary? This is a REST accesspoint, so...
-  if ($authentication_class->redirectHttp($_SERVER)) {
-    exit();
-  }
+  //if ($authentication_class->redirectHttp($_SERVER)) {
+    //throw new Exception("403, Access denied over http.");
+    //exit();
+  //}
 
   // --------------------  Instantiate configuration  --------------------------
-  $global_configuration_class = new global_configuration_class();
+  $global_configuration_class = new core_global_configuration_class();
 
   // --------------------  Define database variable  ---------------------------
   /**

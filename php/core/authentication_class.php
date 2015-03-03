@@ -6,7 +6,7 @@
   /* ======================================================================== */
 
   /**
-    * @title       | Authentication Class
+    * @title       | 
     * @module      | core
     * @file        | authentication_class.php
     * @description | Class handling authentication of incoming requests. This
@@ -22,7 +22,7 @@
     * @type         | object
     * @description  | application level authentication access
     **/
-  class authentication_class {
+  class core_authentication_class {
   
     // ------------------------ Redirect http to https -------------------------
     /**

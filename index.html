@@ -22,7 +22,7 @@
     e.preventDefault();
 
     xhr = new XMLHttpRequest();
-    xhr.open("POST", "php/core/request.php", true);
+    xhr.open("POST", "php/request.php", true);
     xhr.setRequestHeader("foo", "bar");
     xhr.addEventListener("load", function (e) {
       console.log("answer");

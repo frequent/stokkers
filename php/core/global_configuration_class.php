@@ -23,7 +23,7 @@
     * @type         | object
     * @description  | set application level configuration
     **/
-  class global_configuration_class {
+  class core_global_configuration_class {
 
     /**
       * @property     | $database_connection_status

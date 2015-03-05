@@ -78,7 +78,7 @@
       **/
     public function overrideExceptionHandler($exception_dict) {
 
-      $message_list = explode(",", $exception_dict::getMessage());
+      $message_list = explode(",", $exception_dict->getMessage());
 
       if (isset($message_list[1])) {
         $error_message = $message_list[1];
@@ -89,11 +89,11 @@
       }
       
       $this::handleErrorAndDie(
-        $exception_dict::getType(),
+        $exception_dict->getCode(),
         $error_message,
-        $exception_dict::getFile(),
-        $exception_dict::getLine(),
-        $exception_dict::getTraceAsString(),
+        $exception_dict->getFile(),
+        $exception_dict->getLine(),
+        $exception_dict->getTraceAsString(),
         "exception",
         $error_http_code,
         true

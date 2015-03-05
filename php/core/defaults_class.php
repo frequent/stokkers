@@ -49,7 +49,7 @@
       * @type         | String
       * @description  | Database name for establishing databse connection
       **/
-    public $database_name = "stokkers";
+    public $database_name = "runner";
     
     /**
       * @propery      | $dependency_list
